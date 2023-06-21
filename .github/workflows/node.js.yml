@@ -19,12 +19,14 @@ jobs:
 
     steps:
     - run: sudo rm -r .next/
+    - run: sudo rm -r node_modules/
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: sudo npm install --force
     - run: sudo npm run build --if-present
     - run: sudo pm2 kill
     - run: sudo pm2 start npm --name "next-app" -- run dev
