@@ -22,7 +22,10 @@ jobs:
         if [ -d ".next/" ]; then
           rm -rf "sudo rm -r .next/"
         fi
-    - run: sudo rm -r node_modules/
+    - run: |
+        if [ -d "node_modules/" ]; then
+          rm -rf "sudo rm -r node_modules/"
+        fi
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -32,4 +35,4 @@ jobs:
     - run: sudo npm install --force
     - run: sudo npm run build --if-present
     - run: sudo pm2 kill
-    - run: sudo pm2 start npm --name "next-app" -- run dev
+    - run: sudo pm2 start npm --name "next-app" -- run start
