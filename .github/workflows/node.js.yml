@@ -18,7 +18,10 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - run: sudo rm -r .next/
+    - run: |
+        if [ -d ".next/" ]; then
+          rm -rf "sudo rm -r .next/"
+        fi
     - run: sudo rm -r node_modules/
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
